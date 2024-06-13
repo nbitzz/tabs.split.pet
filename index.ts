@@ -117,5 +117,5 @@ const server = Bun.serve({
 
     },
 
-    port: process.env.PORT ?? 38192
+    port: process.env.PORT ?? 3000
 } as Serve<Device> /* bun won't accept this for some reason if i don't do as Serve */)

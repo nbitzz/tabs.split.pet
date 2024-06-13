@@ -1,0 +1,5 @@
+services:
+  tabs.split.pet:
+    build: .
+    env_file:
+      - .env

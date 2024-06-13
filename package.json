@@ -2,7 +2,7 @@
   "name": "me.fyle.uk",
   "module": "index.ts",
   "scripts": {
-    "start": "bun run index.ts"
+    "start": "bun run --smol index.ts"
   },
   "devDependencies": {
     "bun-types": "latest"
