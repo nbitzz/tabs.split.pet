@@ -93,6 +93,12 @@
             summary::marker {
                 content: "";
             }
+
+            #accuracy {
+                opacity: 0.5;
+                text-decoration: underline dotted;
+                cursor: help;
+            }
         </style>
     </head>
 
@@ -102,7 +108,7 @@
                 <div></div>
                 <span>LIVE</span>
             </div>
-            <h1><slot id="tabCount">$tabcount</slot></h1>
+            <h1><slot id="tabCount">$tabcount</slot><span id="accuracy" style="display:unset" title="Could be inaccurate: not all devices are online">?</span></h1>
             <details>
                 <summary>tabs across <slot id="windowCount">$windowcount</slot> windows</p></summary>
                 $otherdevices
@@ -146,6 +152,9 @@
                 Object.entries(data).forEach(([device, info]) => {
                     document.getElementById(`${device}.tabCount`).textContent = info.allTabs || "?"
                     document.getElementById(`${device}.windowCount`).textContent = info.allWindows || "?"
+                    let status = document.getElementById(`${device}.status`)
+                    status.style.color = info.online ? "#66FFAA" : "#FF6666"
+                    status.title = info.online ? "Online" : "Offline"
                 })
             })
 

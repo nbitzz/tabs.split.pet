@@ -1,4 +1,5 @@
 import type { Serve, ServerWebSocket } from "bun";
+import cachedTabsPage from "./pages/tabs.html" with { type: "text" };
 
 if (!process.env.DEVICES)
     throw new Error("DEVICES not specified")
@@ -15,8 +16,6 @@ const devices = Object.fromEntries(process.env.DEVICES.split(",").map(
             .map(e => e[1])
             .map(b => b.join(":"))
 )) as Record<string, string>
-
-const cachedTabsPage = await Bun.file(`${import.meta.dir}/pages/tabs.html`).text()
 
 type Device = keyof typeof devices
 
@@ -36,6 +35,10 @@ let tabInfo = Object.fromEntries(
 
 let listening: ServerWebSocket<Device>[] = []
 
+function updateListeners() {
+    listening.forEach(v => v.send(JSON.stringify(tabInfo)))
+}
+
 function updateTabInfo(device: Device, data: any) {
     if (data) {
         // Horrible
@@ -43,7 +46,7 @@ function updateTabInfo(device: Device, data: any) {
             allTabs: parseInt(data.allTabs, 10),
             allWindows: parseInt(data.allWindows, 10)
         })
-        listening.forEach(v => v.send(JSON.stringify(tabInfo)))
+        updateListeners()
     }
 }
 
@@ -61,9 +64,11 @@ const server = Bun.serve({
                         .replaceAll("$tabcount", (Object.values(tabInfo).reduce((a,b) => a + b.allTabs, 0) || "?").toString())
                         .replaceAll("$windowcount", (Object.values(tabInfo).reduce((a,b) => a + b.allWindows, 0) || "?").toString())
                         .replaceAll("$otherdevices", Object.entries(tabInfo).map(([x,v]) => 
-                            `<strong>${x}:</strong> <slot id="${x}.tabCount">${v.allTabs}</slot> tabs open`
+                            `<strong><span id="${x}.status" title="${v.online ? "Online" : "Offline"}" style="color:${v.online ? "#66FFAA" : "#FF6666"}">&#x2022;</span>`
+                            + ` ${x}:</strong> <slot id="${x}.tabCount">${v.allTabs}</slot> tabs open`
                             + ` in <slot id="${x}.windowCount">${v.allWindows}</slot> window(s)`
                         ).join("<br>"))
+                        .replaceAll("display:unset", Object.values(tabInfo).every(e => e.online) ? "display:none" : "display:unset")
                 )
                 res.headers.set("content-type", "text/html")
                 return res
@@ -102,6 +107,7 @@ const server = Bun.serve({
                 if (!device || tabInfo[device].online) return ws.close(4500,"invalid key")
                 ws.data = device
                 tabInfo[device].online = true
+                updateListeners()
             }
         },
 
@@ -111,8 +117,10 @@ const server = Bun.serve({
         },
 
         close(ws) {
-            if (ws.data)
+            if (ws.data) {
                 tabInfo[ws.data].online = false
+                updateListeners()
+            }
             listening.splice(listening.indexOf(ws), 1)
         }
 
