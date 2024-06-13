@@ -122,7 +122,10 @@
 
         let tabcount = document.getElementById("tabCount");
         let wincount = document.getElementById("windowCount");
+        let accIndicator = document.getElementById("accuracy");
         let titleElm = document.getElementsByTagName("title")[0];
+        
+        accIndicator.addEventListener("click", () => alert(accIndicator.title))
 
         function generateSocket() {
             if (socket && socket.readyState != 3) {
@@ -156,6 +159,9 @@
                     status.style.color = info.online ? "#66FFAA" : "#FF6666"
                     status.title = info.online ? "Online" : "Offline"
                 })
+
+                accIndicator.style.display = Object.values(data).every(e => e.online)
+
             })
 
             socket.addEventListener("close", () => {
