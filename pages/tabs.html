@@ -123,7 +123,7 @@
                 socket.close();
             }
 
-            socket = new WebSocket("count")
+            socket = new WebSocket(window.location.protocol.replace("http","ws")+"//"+window.location.pathname+"/count")
 
             socket.addEventListener("open", () => {
                 ld.style.display = "flex";
