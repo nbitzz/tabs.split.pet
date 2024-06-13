@@ -1,5 +1,7 @@
 services:
   tabs.split.pet:
     build: .
+    ports:
+      - "30000:3000"
     env_file:
       - .env
