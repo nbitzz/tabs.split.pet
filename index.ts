@@ -99,8 +99,9 @@ const server = Bun.serve({
                         .find(e => e[1] == message.toString())
                         ?.[0] as Device|undefined
                 
-                if (!device) return ws.close(4500,"invalid key")
-                else ws.data = device
+                if (!device || tabInfo[device].online) return ws.close(4500,"invalid key")
+                ws.data = device
+                tabInfo[device].online = true
             }
         },
 
