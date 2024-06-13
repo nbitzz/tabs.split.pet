@@ -1,6 +1,9 @@
 {
   "name": "me.fyle.uk",
   "module": "index.ts",
+  "scripts": {
+    "start": "bun run index.ts"
+  },
   "devDependencies": {
     "bun-types": "latest"
   },
