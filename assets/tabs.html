@@ -6,8 +6,13 @@
         <title>$tabcount tabs in $windowcount windows</title>
 
         <style>
+            @font-face {
+              font-family: "Space Mono";
+              src: url("/spacemono.ttf") format("truetype");
+            }
+
             h1, p, div, details {
-                font-family: sans-serif;
+                font-family: "Space Mono", sans-serif;
                 text-align: center;
                 margin: 0;
             }
@@ -48,6 +53,7 @@
                 position:absolute;
                 left: 50%;
                 top: 50%;
+                width: calc(100% - 30px);
                 transform: translate(-50%,-50%);
             }
 
