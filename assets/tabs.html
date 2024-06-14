@@ -21,22 +21,26 @@
                 --background: #FFFFFF;
                 --text: #000000;
                 --subtext: #AAAAAA;
+                --liveDenoteBkg: #f66;
             }
 
             @media (prefers-color-scheme: dark) {
                 :root {
                     --background: #000000;
                     --text: #DDDDDD;
+                    --liveDenoteBkg: #622;
                 }
-            }
-
-            @keyframes blinking_dot {
-                0%   {opacity: 1}
-                100% {opacity: 0}
             }
 
             body {
                 background-color:var(--background);
+            }
+            body > div {
+                position:absolute;
+                left: 50%;
+                top: 50%;
+                width: calc(100% - 30px);
+                transform: translate(-50%,-50%);
             }
 
             #live_denote {
@@ -49,18 +53,15 @@
                 gap: 5px;
             }
 
-            body > div {
-                position:absolute;
-                left: 50%;
-                top: 50%;
-                width: calc(100% - 30px);
-                transform: translate(-50%,-50%);
-            }
-
             #live_denote > * {
                 margin: 0;
             }
-
+            /*
+            @keyframes blinking_dot {
+                0%   {opacity: 1}
+                100% {opacity: 0}
+            }
+            
             #live_denote > div {
                 background-color: red;
                 border-radius: 32px;
@@ -72,6 +73,14 @@
                 animation-timing-function: linear;
                 animation-duration: 1s;
                 animation-iteration-count: infinite;
+            }*/
+            #live_denote > div {
+                display:none;
+            }
+            #live_denote > span {
+                padding: 2px 6px;
+                background: var(--liveDenoteBkg);
+                color: var(--text);
             }
 
             h1 {
