@@ -121,7 +121,10 @@ const server = Bun.serve({
                         /*.replaceAll("$fontData", encodedFont)*/,
                         {
                             headers: {
-                                "Content-Type": "image/svg+xml"
+                                "Content-Type": "image/svg+xml",
+                                "Cache-Control": "no-cache, no-store, must-revalidate",
+                                "Pragma": "no-cache",
+                                "Expires": "0"
                             }
                         }
                 )
