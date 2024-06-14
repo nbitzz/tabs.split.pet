@@ -4,7 +4,7 @@ import cachedTabsPage from "./assets/tabs.html" with { type: "text" };
 import _cachedButton from "./assets/button.svg" with { type: "text" };
 
 const SPACEMONO = Bun.file("./assets/SpaceMono-Regular.ttf")
-const SPACEMONO_SBST = Bun.file("./assets/SpaceMono-Regular-subset.ttf")
+const SPACEMONO_SBST = Bun.file("./assets/SpaceMono-Regular-subset.woff2")
 const cachedButton = _cachedButton.replaceAll(
     "$fontData",
     Buffer.from(

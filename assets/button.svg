@@ -3,7 +3,7 @@
   <style>
     @font-face {
       font-family: "Space Mono";
-      src: url("data:font/ttf;base64,$fontData") format("truetype");
+      src: url("data:font/ttf;base64,$fontData");
     }
 
     .tabCount, .btext, .st {
