@@ -1,4 +1,5 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="88" height="31">
+  <title>split has $tabCount tabs open</title>
   <style>
     @font-face {
       font-family: "Space Mono";
