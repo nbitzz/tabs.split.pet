@@ -1,6 +1,17 @@
 import type { Serve, ServerWebSocket } from "bun";
-import cachedTabsPage from "./pages/tabs.html" with { type: "text" };
+//import { create, type Font } from "fontkit";
+import cachedTabsPage from "./assets/tabs.html" with { type: "text" };
+import _cachedButton from "./assets/button.svg" with { type: "text" };
 
+const SPACEMONO = Bun.file("./assets/SpaceMono-Regular.ttf")
+const SPACEMONO_SBST = Bun.file("./assets/SpaceMono-Regular-subset.ttf")
+const cachedButton = _cachedButton.replaceAll(
+    "$fontData",
+    Buffer.from(
+        await SPACEMONO_SBST.arrayBuffer()
+    ).toString("base64")
+)
+/*const SPACEMONO_FK = create(Buffer.from(await SPACEMONO.arrayBuffer())) as Font*/
 if (!process.env.DEVICES)
     throw new Error("DEVICES not specified")
 
@@ -89,6 +100,32 @@ const server = Bun.serve({
                     return new Response("OK", { headers: { "Access-Control-Allow-Origin": "*" } })
                 }
             break;
+            case "/spacemono.ttf":
+                return new Response(SPACEMONO)
+            break
+            case "/button.svg":
+                let tabsOpen = (Object.values(tabInfo).reduce((a,b) => a + b.allTabs, 0) || "?").toString()
+                /*let subset = SPACEMONO_FK.createSubset()
+                SPACEMONO_FK.layout(
+                    Array.from(new Set(
+                        Array.from(
+                            `split tabs open ${tabsOpen}`
+                        )
+                    ).values()).join("")
+                ).glyphs.forEach(e => subset.includeGlyph(e))
+                let encodedFont = Buffer.from(subset.encode()).toString("base64")
+                */
+                return new Response(
+                    cachedButton
+                        .replaceAll("$tabCount", tabsOpen)
+                        /*.replaceAll("$fontData", encodedFont)*/,
+                        {
+                            headers: {
+                                "Content-Type": "image/svg+xml"
+                            }
+                        }
+                )
+            break
             default:
                 return Response.redirect("/")
         }

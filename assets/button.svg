@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="88" height="31">
+  <style>
+    @font-face {
+      font-family: "Space Mono";
+      src: url("data:font/ttf;base64,$fontData") format("truetype");
+    }
+
+    .tabCount, .btext, .st {
+      font-family: "Space Mono", monospace, monospace;
+    }
+    .tabCount, .btext {
+      text-anchor: end;
+      dominant-baseline: central;
+    }
+    .btext {
+      fill: lightgray;
+      font-size: 10px;
+    }
+    .st {
+      fill: lightgray;
+      font-size: 10px;
+      dominant-baseline: auto;
+      transform: rotate(90deg) translate(0, -5px);
+    }
+    .tabCount {
+      fill: white;
+      font-size: 16px;
+    }
+  </style>
+  <g>
+    <rect x="0" y="0" width="88" height="31" fill="#222" />
+    <text x="83" y="40%" class="tabCount">$tabCount</text>
+    <text x="83" y="70%" class="btext">tabs open</text>
+    <text x="0" y="0" class="st">split</text>
+  </g>
+</svg>

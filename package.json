@@ -1,14 +1,14 @@
 {
   "name": "me.fyle.uk",
   "module": "index.ts",
-  "scripts": {
-    "start": "bun run --smol index.ts"
-  },
   "devDependencies": {
     "bun-types": "latest"
   },
   "peerDependencies": {
     "typescript": "^5.0.0"
+  },
+  "scripts": {
+    "start": "bun run --smol index.ts"
   },
   "type": "module"
 }
