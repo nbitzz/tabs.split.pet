@@ -7,7 +7,7 @@ export class Memory {
     memory: any
 
     constructor() {
-        this.file = Bun.file(process.env.MEMORY_LOCATION || "./.data/memory.json")
+        this.file = Bun.file(process.env.MEMORY_LOCATION || `${process.cwd()}/.data/memory.json`)
     }
 
     async get(key: string) {
