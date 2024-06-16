@@ -1,7 +1,7 @@
 services:
   tabs.split.pet:
-    build: .
+    build: app
     ports:
       - "30000:3000"
     env_file:
-      - .env
+      - app/.env
