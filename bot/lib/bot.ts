@@ -21,11 +21,11 @@ export class Bot {
     }
     
     note(text: string) {
+        console.log(text)
         return this.fetch('/notes/create', {
             text,
             visibility: "home"
         })
-        console.log(text)
     }
 }
 
