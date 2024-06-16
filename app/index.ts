@@ -15,8 +15,6 @@ const cachedButton = _cachedButton.replaceAll(
 if (!process.env.DEVICES)
     throw new Error("DEVICES not specified")
 
-// this is baaaaad LOL
-// DEVICES=desktop:a,laptop:b
 const devices = Object.fromEntries(process.env.DEVICES.split(",").map(
     e => 
         Object.entries(Object.groupBy(
