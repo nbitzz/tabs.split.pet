@@ -12,7 +12,7 @@ export class Memory {
 
     async get(key: string) {
         if (!this.memory)
-            if (MEMORY.exists()) this.memory = await this.file.json()
+            if (this.file.exists()) this.memory = await this.file.json()
             else this.memory = {}
 
         return this.memory[key]
