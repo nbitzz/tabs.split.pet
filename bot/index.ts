@@ -4,6 +4,7 @@ import mem from "./lib/memory"
 import lazy, {resetLazy} from "./lib/lazy"
 
 let lastTabCt = await new Promise((res) => tsp.once("tabsChanged", tabs => res(tabs)))
+let lgTabDropStart: number | null = null
 
 tsp.on("tabsChanged", async tabs => {
     // Jumps
@@ -11,7 +12,7 @@ tsp.on("tabsChanged", async tabs => {
     if (lgTabDropStart)
         resetLazy("lgDrop")
     else if (lastTabCt-tabs > 50 || lastTabCt-tabs < -50) {
-        let lgTabDropStart = lastTabCt
+        lgTabDropStart = lastTabCt
         lazy("lgDrop", () => {
             if (lgTabDropStart-tabs > 50 || lgTabDropStart-tabs < -50) {
                 let dropped = lgTabDropStart-tabs > 50
@@ -22,6 +23,7 @@ tsp.on("tabsChanged", async tabs => {
                     + ` **${tabs}** in ${tsp.currentStatus.allWindows} windows.`
                 )
             }
+            lgTabDropStart = null
         }, 5000)
     }
 
