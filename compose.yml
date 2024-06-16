@@ -8,6 +8,6 @@ services:
   bot:
     build: bot
     volumes:
-      - "memory.json:/usr/src/app/memory.json"
+      - ".data:/usr/src/app/.data"
     env_file:
       - bot/.env
