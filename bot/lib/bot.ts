@@ -10,7 +10,7 @@ export class Bot {
     }
 
     fetch(rt: `/${string}`, body?: Record<string, any>) {
-        return fetch(`https://${this.instance}${rt}`, {
+        return fetch(`https://${this.instance}/api${rt}`, {
             ...(body ? {body: JSON.stringify(body)} : {}),
             method: body ? "POST" : "GET",
             headers: {
