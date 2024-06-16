@@ -12,6 +12,6 @@ export default function lazy(id: string, f: () => void, t: number) {
 
 export function resetLazy(id: string) {
     if (!LazyCch.has(id)) return
-    let lazy = LazyCch.get(id)
-    lazy(id, lazy.f, lazy.t)
+    let lz = LazyCch.get(id)
+    lazy(id, lz.f, lz.t)
 }
