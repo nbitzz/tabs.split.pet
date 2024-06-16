@@ -22,6 +22,9 @@ tsp.on("tabsChanged", async tabs => {
                     + ` by **${Math.abs(lgTabDropStart-tabs)}** tabs to`
                     + ` **${tabs}** in ${tsp.currentStatus.allWindows} windows.`
                 )
+
+                if (dropped)
+                    mem.set("lastMilestone", Math.floor(tabs/100))
             }
             lgTabDropStart = null
         }, 5000)
