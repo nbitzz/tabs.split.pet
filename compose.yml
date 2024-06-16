@@ -1,7 +1,13 @@
 services:
-  tabs.split.pet:
+  app:
     build: app
     ports:
       - "30000:3000"
     env_file:
       - app/.env
+  bot:
+    build: bot
+    volumes:
+      - "memory.json:/usr/src/app/memory.json"
+    env_file:
+      - bot/.env

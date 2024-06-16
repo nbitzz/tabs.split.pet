@@ -34,7 +34,7 @@ type DeviceStatus = {
     online: boolean
 }
 
-type DeviceTabkeeper = {
+export type DeviceTabkeeper = {
     [x in Device]: DeviceStatus
 }
 
