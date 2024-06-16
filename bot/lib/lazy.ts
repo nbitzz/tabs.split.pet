@@ -7,7 +7,7 @@ export default function lazy(id: string, f: () => void, t: number) {
     LazyCch.set(id, { to: setTimeout(() => {
         LazyCch.delete(id)
         f()
-    }), f, t })
+    }, t), f, t })
 }
 
 export function resetLazy(id: string) {

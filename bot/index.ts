@@ -27,7 +27,7 @@ tsp.on("tabsChanged", async tabs => {
         }, 5000)
     }
 
-    if (Math.floor(tabs/100) > await mem.get("lastMilestone")) {
+    if (Math.floor(tabs/100) > (await mem.get("lastMilestone") || 0)) {
         mem.set("lastMilestone", Math.floor(tabs/100))
         bot.note(`🎉 **Milestone:** split's tab count is now **${tabs}**.`)
     }
