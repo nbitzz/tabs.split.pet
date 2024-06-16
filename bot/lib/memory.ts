@@ -20,7 +20,7 @@ export class Memory {
 
     set(key: string, value: any) {
         this.memory[key] = value
-        return Bun.write(this.file, this.memory)
+        return Bun.write(this.file, JSON.stringify(this.memory))
     }
 
 }
