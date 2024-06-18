@@ -177,7 +177,7 @@
                     status.title = info.online ? "Online" : "Offline"
                 })
 
-                accIndicator.style.display = Object.values(data).every(e => e.online)
+                accIndicator.style.display = Object.values(data).every(e => e.online) ? "none" : "inline"
 
             })
 
