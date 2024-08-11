@@ -8,11 +8,11 @@ interface Status {
 
 export class TSPWatcher extends EventEmitter<{tabsChanged: number, windowsChanged: number, changed: Status}> {
 
-    readonly count: string = process.env.TAB_COUNTER || "http://app:3000/count"
+    readonly count: string
     socket: WebSocket
     currentStatus: Status = { allTabs: 0, allWindows: 0 }
 
-    constructor(count: string) {
+    constructor(count: string = process.env.TAB_COUNTER || "http://app:3000/count") {
         super()
         if (count) this.count = count
         if (!this.count)
