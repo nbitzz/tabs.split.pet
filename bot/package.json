@@ -1,5 +1,5 @@
 {
-  "name": "me.fyle.uk",
+  "name": "tabs.split.pet-bot",
   "module": "index.ts",
   "devDependencies": {
     "bun-types": "latest"
