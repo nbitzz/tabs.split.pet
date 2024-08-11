@@ -23,8 +23,10 @@ tsp.on("tabsChanged", async tabs => {
                     + ` **${tabs}** in ${tsp.currentStatus.allWindows} windows.`
                 )
 
+                /*
                 if (dropped)
                     mem.set("lastMilestone", Math.floor(tabs/100))
+                */
             }
             tabDropAnchor = null
         }, 5000)
