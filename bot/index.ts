@@ -4,29 +4,29 @@ import mem from "./lib/memory"
 import lazy, {resetLazy} from "./lib/lazy"
 
 let lastTabCt = await new Promise((res) => tsp.once("tabsChanged", tabs => res(tabs)))
-let lgTabDropStart: number | null = null
+let tabDropAnchor: number | null = null
 
 tsp.on("tabsChanged", async tabs => {
     // Jumps
     
-    if (lgTabDropStart)
-        resetLazy("lgDrop")
+    if (tabDropAnchor)
+        resetLazy("lgDrop") // reset if there's already an anchor
     else if (lastTabCt-tabs > 50 || lastTabCt-tabs < -50) {
-        lgTabDropStart = lastTabCt
+        tabDropAnchor = lastTabCt
         lazy("lgDrop", () => {
-            if (lgTabDropStart-tabs > 50 || lgTabDropStart-tabs < -50) {
-                let dropped = lgTabDropStart-tabs > 50
+            if (tabDropAnchor-tabs > 50 || tabDropAnchor-tabs < -50) {
+                let dropped = tabDropAnchor-tabs > 50
 
                 bot.note(
                     `${dropped ? "⚠️" : "🚀"} **Jump:** split's tab count just ${dropped ? "dropped" : "rose"}`
-                    + ` by **${Math.abs(lgTabDropStart-tabs)}** tabs to`
+                    + ` by **${Math.abs(tabDropAnchor-tabs)}** tabs to`
                     + ` **${tabs}** in ${tsp.currentStatus.allWindows} windows.`
                 )
 
                 if (dropped)
                     mem.set("lastMilestone", Math.floor(tabs/100))
             }
-            lgTabDropStart = null
+            tabDropAnchor = null
         }, 5000)
     }
 
