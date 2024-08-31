@@ -19,5 +19,7 @@
       "bun-types" // add Bun global
     ]
   },
-  "include": ["../app/index.ts"]
+  "references": [
+    { "path": "../app/tsconfig.json" }
+  ]
 }

@@ -6,16 +6,16 @@ interface Status {
     allWindows: number
 }
 
-export class TSPWatcher extends EventEmitter<{tabsChanged: number, windowsChanged: number, changed: Status}> {
+export class TSPWatcher extends EventEmitter<{tabsChanged: [number], windowsChanged: [number], changed: [Status]}> {
 
     readonly count: string
-    socket: WebSocket
+    socket: WebSocket | undefined = undefined
     currentStatus: Status = { allTabs: 0, allWindows: 0 }
 
     constructor(count: string = process.env.TAB_COUNTER || "http://app:3000/count") {
         super()
         if (count) this.count = count
-        if (!this.count)
+        else
             throw new Error("TSP url not set")
 
         this.generateSocket()
@@ -34,9 +34,9 @@ export class TSPWatcher extends EventEmitter<{tabsChanged: number, windowsChange
             let allTabs = Object.values(data).reduce((a, b) => a + b.allTabs, 0)
             let allWindows = Object.values(data).reduce((a, b) => a + b.allWindows, 0)
 
-            let changes = [
-                ...(allTabs != this.currentStatus.allTabs ? [{event: "tabsChanged", value: allTabs}] : []),
-                ...(allWindows != this.currentStatus.allWindows ? [{event: "windowsChanged", value: allWindows}] : [])
+            let changes: {event: "tabsChanged" | "windowsChanged", value: number}[] = [
+                ...(allTabs != this.currentStatus.allTabs ? [{event: "tabsChanged", value: allTabs} as const] : []),
+                ...(allWindows != this.currentStatus.allWindows ? [{event: "windowsChanged", value: allWindows} as const] : [])
             ]
 
             this.currentStatus = {
