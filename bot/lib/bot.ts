@@ -1,7 +1,7 @@
 export class Bot {
     readonly instance: string = process.env.FF_INSTANCE!
     readonly token: string = process.env.FF_TOKEN!
-    signature?: string = "$[small *watch live at [tabs.split.pet](https://tabs.split.pet) | [add the tabs button](https://tabs.split.pet/button.svg) (make sure to hotlink!)*]"
+    signature?: string = "$[small watch live at [tabs.split.pet](https://tabs.split.pet) | [add the tabs button](https://tabs.split.pet/button.svg) (make sure to hotlink!)]"
 
     constructor(instance?: string, token?: string) {
         if (instance) this.instance = instance
@@ -24,7 +24,7 @@ export class Bot {
     note(text: string) {
         console.log(text)
         return this.fetch('/notes/create', {
-            text: text + this.signature ? `\n\n${this.signature}` : "",
+            text: text + (this.signature ? `\n\n${this.signature}` : ""),
             visibility: "home"
         })
     }
