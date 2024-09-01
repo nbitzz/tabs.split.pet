@@ -25,7 +25,7 @@ import lazy, {resetLazy} from "./lib/lazy"
 
         if (tabDropAnchor)
             resetLazy("lgDrop") // reset if there's already an anchor
-        else
+        else {
             tabDropAnchor = lastTabCount
             lazy("lgDrop", () => {
                 if (!tabDropAnchor) return
@@ -42,6 +42,7 @@ import lazy, {resetLazy} from "./lib/lazy"
                 }
                 tabDropAnchor = null
             }, 5000)
+        }
 
     })
 
