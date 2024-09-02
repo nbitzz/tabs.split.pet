@@ -22,6 +22,7 @@ import lazy, {resetLazy} from "./lib/lazy"
     let tabDropAnchor: number | null = null
 
     tsp.on("tabsChanged", async tabs => {
+        lastTabCount = tabs
 
         if (tabDropAnchor)
             resetLazy("lgDrop") // reset if there's already an anchor
